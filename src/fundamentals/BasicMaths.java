@@ -26,7 +26,10 @@ public class BasicMaths {
 
         System.out.println(gcdOptimal(12, 18));
 
+        System.out.println(lcmBruteForce(12, 18));
         System.out.println(lcm(12, 18));
+
+        System.out.println(isArmstrong(153));
     }
 
     public static int countDigitBruteForce(int n) {
@@ -154,9 +157,41 @@ public class BasicMaths {
     }
 
 
+    public static int lcmBruteForce(int a, int b) {
+
+        // LCM of a, b will be greater than max(a, b) and <= a * b;
+
+        int max = Math.max(a, b);
+
+        for (int i = max; i < a*b; i++) {
+            if (i % a == 0 && i % b ==0) return i;
+        }
+
+        return a * b;
+    }
 
     public static int lcm (int a, int b) {
         return (a * b) / gcdOptimal(a, b);
     }
 
+
+    public static boolean isArmstrong(int n) {
+        int x = n;
+        int digitCount = countDigitOptimal(n);
+
+        int digitSum = 0;
+        int powSum = 0;
+
+        while (n > 0) {
+            int ld = n % 10;
+            digitSum += ld;
+            powSum += (int) Math.pow(ld, digitCount);
+            n /= 10;
+        }
+
+        return powSum == x;
+    }
+
+
+//    public static int sumOfDigits
 }
