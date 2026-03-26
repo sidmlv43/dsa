@@ -8,6 +8,11 @@ public class AdvanceSorting {
         int[] arr = {4, 3, 2, 10, 3};
         mergeSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
+
+        int[] arr1 = {4, 3, 0, 1, 9, 7};
+        quickSort(arr1, 0, arr1.length - 1);
+        System.out.println(Arrays.toString(arr1));
+
     }
 
     public static void mergeSort(int[] arr, int si, int ei) {
@@ -39,8 +44,6 @@ public class AdvanceSorting {
 
         }
 
-
-
         while (left <= mid) {
             temp[k++] = arr[left++];
         }
@@ -54,6 +57,38 @@ public class AdvanceSorting {
             arr[l] = temp[l - si];
         }
 
+    }
+
+
+    public static void quickSort(int[] arr, int si, int ei) {
+        if (si >= ei) return;
+        int pIdx = partition(arr, si, ei);
+        quickSort(arr, si, pIdx - 1);
+        quickSort(arr, pIdx + 1, ei);
+    }
+
+
+    public static int partition(int[] arr, int si, int ei) {
+
+        int pivot = arr[ei];
+        int i = si - 1;
+
+
+        for (int j = si; j <= ei; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+
+        i++;
+        int temp = pivot;
+        arr[ei] = arr[i];
+        arr[i] = temp;
+
+        return i;
     }
 
 }
