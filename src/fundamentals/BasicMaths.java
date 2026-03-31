@@ -29,7 +29,7 @@ public class BasicMaths {
         System.out.println(lcmBruteForce(12, 18));
         System.out.println(lcm(12, 18));
 
-        System.out.println(isArmstrong(153));
+        System.out.println(isArmstrong(513));
     }
 
     public static int countDigitBruteForce(int n) {
@@ -179,12 +179,11 @@ public class BasicMaths {
         int x = n;
         int digitCount = countDigitOptimal(n);
 
-        int digitSum = 0;
         int powSum = 0;
 
         while (n > 0) {
             int ld = n % 10;
-            digitSum += ld;
+
             powSum += (int) Math.pow(ld, digitCount);
             n /= 10;
         }
@@ -192,6 +191,4 @@ public class BasicMaths {
         return powSum == x;
     }
 
-
-//    public static int sumOfDigits
 }
