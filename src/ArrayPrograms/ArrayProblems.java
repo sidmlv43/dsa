@@ -43,6 +43,15 @@ public class ArrayProblems {
 
         int[] ones = {0, 0, 1, 1, 0, 1, 1, 1};
         System.out.println(countMaxConsecutive1(ones));
+
+        int[] arr1 = {1, 2, 1, 2, 4};
+
+        System.out.println(findUnique(arr1));
+
+        // 14
+        int[] n1 = {8, 6, 4, 7, 1, 2};
+        System.out.println(maxSubArrayWithKSum(n1, 14));
+
     }
 
     public static int findMax(int[] arr) {
@@ -280,5 +289,40 @@ public class ArrayProblems {
 
         return maxCount;
 
+    }
+
+    public static int findUnique(int[]  arr) {
+
+        int xorr = 0;
+
+        for(int n: arr) {
+            xorr ^= n;
+        }
+
+        return xorr;
+    }
+
+    public static int maxSubArrayWithKSum(int[] arr, int k) {
+        int n = arr.length;
+
+        int left = 0;
+
+        int sum = 0;
+        int maxLen = 0;
+
+        for (int right = 0; right < n; right++) {
+            sum += arr[right];
+
+            while (sum > k) {
+                sum -= arr[left];
+                left++;
+            }
+
+            if (sum == k) {
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+        }
+
+        return maxLen;
     }
 }
