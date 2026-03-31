@@ -3,6 +3,7 @@ package ArrayPrograms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalInt;
 
 public class ArrayProblems {
 
@@ -31,6 +32,18 @@ public class ArrayProblems {
 
         moveZeroesToEnd(zeroes);
         System.out.println(Arrays.toString(zeroes));
+
+        int[] a = {1, 2, 4, 7, 10};
+        int[] b = {1, 3, 5, 6, 8, 9};
+
+        List<Integer> aUnionB = findUnion(a, b);
+
+        System.out.println(aUnionB);
+        int[] x = {1, 2, 3, 4, 6, 7, 8, 9};
+        System.out.println(findMissing(x));
+
+        int[] ones = {0, 0, 1, 1, 0, 1, 1, 1};
+        System.out.println(countMaxConsecutive1(ones));
     }
 
     public static int findMax(int[] arr) {
@@ -196,6 +209,76 @@ public class ArrayProblems {
             }
             j++;
         }
+
+    }
+
+
+    public static List<Integer> findUnion(int[] n1, int[] n2) {
+        int m = n1.length;
+        int n = n2.length;
+        List<Integer> unionList = new ArrayList<>();
+
+        int left = 0, right = 0;
+
+        while (left < m && right < n) {
+            if (n1[left] <= n2[right]) {
+                // Check if it's a duplicate before adding
+                if (unionList.isEmpty() || unionList.get(unionList.size() - 1) != n1[left]) {
+                    unionList.add(n1[left]);
+                }
+                if (n1[left] == n2[right]) right++; // Move both if they are equal
+                left++;
+            } else {
+                if (unionList.isEmpty() || unionList.get(unionList.size() - 1) != n2[right]) {
+                    unionList.add(n2[right]);
+                }
+                right++;
+            }
+        }
+
+        // Cleanup loops with the same duplicate check
+        while (left < m) {
+            if (unionList.get(unionList.size() - 1) != n1[left]) unionList.add(n1[left]);
+            left++;
+        }
+        while (right < n) {
+            if (unionList.get(unionList.size() - 1) != n2[right]) unionList.add(n2[right]);
+            right++;
+        }
+
+        return unionList;
+    }
+
+    public static int findMissing(int[] arr) {
+
+        int n = arr.length;
+        if(n < 3){
+            throw new IllegalArgumentException("array size must be greater than or equals to 3");
+        }
+        int x = n + 1;
+
+        int expectedSum = (x * (x + 1)) / 2;
+        int actualSum = Arrays.stream(arr)
+                .reduce(0, Integer::sum);
+        return expectedSum - actualSum;
+    }
+
+    public static int countMaxConsecutive1(int[] arr) {
+        int n = arr.length;
+
+        int count = 0;
+        int maxCount = 0;
+
+        for (int j : arr) {
+            if (j == 1) {
+                count++;
+                maxCount = Math.max(count, maxCount);
+            } else {
+                count = 0;
+            }
+        }
+
+        return maxCount;
 
     }
 }
