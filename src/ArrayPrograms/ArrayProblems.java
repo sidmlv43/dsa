@@ -3,7 +3,6 @@ package ArrayPrograms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.OptionalInt;
 
 public class ArrayProblems {
 
@@ -121,6 +120,7 @@ public class ArrayProblems {
     }
 
 
+    @SuppressWarnings("all")
     public static void leftRotateByKPlaces(int[] arr, int k) {
         int n = arr.length;
 
@@ -264,7 +264,7 @@ public class ArrayProblems {
     }
 
     public static int countMaxConsecutive1(int[] arr) {
-        int n = arr.length;
+
 
         int count = 0;
         int maxCount = 0;
