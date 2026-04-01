@@ -52,6 +52,9 @@ public class ArrayProblems {
         int[] n1 = {8, 6, 4, 7, 1, 2};
         System.out.println(maxSubArrayWithKSum(n1, 14));
 
+        int[] n2 = {3, 4, 8, 9, 11, 14};
+        twoSum(n2, 15);
+
     }
 
     public static int findMax(int[] arr) {
@@ -324,5 +327,25 @@ public class ArrayProblems {
         }
 
         return maxLen;
+    }
+
+    public static void twoSum(int[] arr, int k) {
+        int n = arr.length;
+
+        int start = 0, end = n - 1;
+
+        while (start < end) {
+            int sum = arr[start] + arr[end];
+            if (sum > k) {
+                end--;
+            }
+            else if (sum < k) {
+                start++;
+            }
+            else {
+                System.out.printf("%s + %s = %s", arr[start], arr[end], k);
+                return;
+            }
+        }
     }
 }
