@@ -1,8 +1,6 @@
 package ArrayPrograms;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ArrayProblems {
 
@@ -20,7 +18,7 @@ public class ArrayProblems {
         leftRotate(sorted);
         System.out.println(Arrays.toString(sorted));
 
-//        leftRotateByKPlaces(sorted, 2);
+        leftRotateByKPlaces(sorted, 2);
 
         int[] arr = {1, 2, 3, 4, 5};
         rotateByKPlace(arr, 2, "left");
@@ -54,6 +52,15 @@ public class ArrayProblems {
 
         int[] n2 = {3, 4, 8, 9, 11, 14};
         twoSum(n2, 15);
+
+        int[] n3 = {9, -3, 3, -1, 6, -5};
+        int ans = maxSubArrayWithZeroSum(n3);
+        System.out.println();
+        System.out.println("ans = " + ans);
+
+        int[] n4 = {0, 1, 2, 0, 0, 2, 2, 2};
+        sortZeroesOnesAndTwos(n4);
+        System.out.println(Arrays.toString(n4));
 
     }
 
@@ -348,4 +355,59 @@ public class ArrayProblems {
             }
         }
     }
+
+
+    public static int maxSubArrayWithZeroSum(int[] arr) {
+        int n = arr.length;
+
+        int sum = 0, maxi = 0;
+        Map<Integer, Integer> mpp = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+
+            if (sum == 0) {
+                maxi = i + 1;
+
+            }
+            else {
+                if(mpp.containsKey(sum)) {
+                    maxi = Math.max(maxi, i - mpp.get(sum));
+                }
+                else {
+                    mpp.put(sum, i);
+                }
+            }
+        }
+
+        return maxi;
+    }
+
+
+    public static void sortZeroesOnesAndTwos(int[] arr) {
+        int n = arr.length;
+
+        int low = 0, mid = 0, high = n - 1;
+
+        while (mid <= high) {
+            if (arr[mid] == 0) {
+                int temp = arr[low];
+                arr[low] = arr[mid];
+                arr[mid] = temp;
+                low++;
+                mid++;
+            }
+            else if (arr[mid] == 1) {
+                mid++;
+            } else if (arr[mid] == 2) {
+                int temp = arr[high];
+                arr[high] = arr[mid];
+                arr[mid] = temp;
+                mid++;
+                high--;
+            }
+        }
+
+    }
+
 }
