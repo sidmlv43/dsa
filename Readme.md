@@ -46,7 +46,7 @@ If you are also following the TUF sheet or learning DSA in Java, you might find 
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-link>
+   git clone https://github.com/sidmlv43/dsa.git
    cd dsa
    ```
 2. **Open in your IDE:** 
