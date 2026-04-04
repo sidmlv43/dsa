@@ -65,6 +65,10 @@ public class ArrayProblems {
         int[] n5 = {1, 1, 0, 0, 1};
         System.out.println(majorityElement(n5));
 
+        int[] n6 = {-2, -3, 4, -1, -2, 1, 5, -3};
+        System.out.println(kadanesAlgo(n6));
+        printMaxSumSubArray(n6);
+
     }
 
     public static int findMax(int[] arr) {
@@ -440,5 +444,55 @@ public class ArrayProblems {
 
         return finalCnt > n / 2 ? el : -1;
     }
+
+    public static int kadanesAlgo(int[] arr) {
+        int n = arr.length;
+        int sum = 0, maxSum = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            maxSum = Math.max(sum, maxSum);
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+        return maxSum;
+    }
+
+    public static void printMaxSumSubArray(int[] arr) {
+        int n = arr.length;
+
+        int sum = 0, maxSum = 0;
+        int start = 0, ansStart = -1, ansEnd = -1;
+
+        for (int i = 0; i < n; i++) {
+            if (sum == 0){
+                start  = i;
+            }
+
+            sum += arr[i];
+
+            if (sum == 0) {
+                start = i;
+            }
+
+            if (sum > maxSum) {
+                maxSum = sum;
+                ansStart = start;
+                ansEnd = i;
+            }
+
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+        for (int i = ansStart; i <= ansEnd ; i++) {
+            System.out.print(arr[i] + ", ");
+        }
+        System.out.println();
+    }
+
 
 }
