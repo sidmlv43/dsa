@@ -62,6 +62,9 @@ public class ArrayProblems {
         sortZeroesOnesAndTwos(n4);
         System.out.println(Arrays.toString(n4));
 
+        int[] n5 = {1, 1, 0, 0, 1};
+        System.out.println(majorityElement(n5));
+
     }
 
     public static int findMax(int[] arr) {
@@ -408,6 +411,34 @@ public class ArrayProblems {
             }
         }
 
+    }
+
+    public static int majorityElement(int[] arr) {
+        int n = arr.length;
+        int cnt = 0;
+        int el = -1;
+
+        // Finding the possible majority element candidate.
+        for (int k : arr) {
+            if (cnt == 0) {
+                el = k;
+                cnt++;
+            } else if (k == el) {
+                cnt++;
+            } else {
+                cnt--;
+            }
+        }
+
+        // verifying if the possible candidate appears more than n/2 times
+        int finalCnt = 0;
+        for (int j : arr) {
+            if (j == el) {
+                finalCnt++;
+            }
+        }
+
+        return finalCnt > n / 2 ? el : -1;
     }
 
 }
