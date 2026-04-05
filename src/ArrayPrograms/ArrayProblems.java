@@ -69,6 +69,13 @@ public class ArrayProblems {
         System.out.println(kadanesAlgo(n6));
         printMaxSumSubArray(n6);
 
+
+        int[] stocks = {7, 1, 5, 3, 6, 4};
+        System.out.println(buyAndSellStock(stocks));
+
+        int[] arr3 = {-1, -2, 0, 1, -3, 4};
+        int[] reArranged = reArrangeBySign(arr3);
+        System.out.println(Arrays.toString(reArranged));
     }
 
     public static int findMax(int[] arr) {
@@ -495,4 +502,40 @@ public class ArrayProblems {
     }
 
 
+
+    public static int buyAndSellStock(int[] stockPrices) {
+
+        int profit = 0, maxProfit = 0;
+        int minPriceTillNow = Integer.MAX_VALUE;
+        for(int price: stockPrices) {
+            if (price < minPriceTillNow) {
+                minPriceTillNow = price;
+            }
+            else {
+                profit = price - minPriceTillNow;
+                maxProfit = Math.max(profit, maxProfit);
+            }
+        }
+        return maxProfit;
+    }
+
+    public static int[] reArrangeBySign(int[] arr) {
+        int n = arr.length;
+        int posIdx = 0, negIdx = 1;
+
+        int[] temp = new int[n];
+
+        for (int i = 0; i < n;  i++) {
+            if (arr[i] < 0) {
+                temp[negIdx] = arr[i];
+                negIdx += 2;
+            }
+            else {
+                temp[posIdx] = arr[i];
+                posIdx += 2;
+            }
+        }
+
+        return temp;
+    }
 }
