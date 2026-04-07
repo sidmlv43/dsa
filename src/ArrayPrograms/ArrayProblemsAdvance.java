@@ -18,6 +18,11 @@ public class ArrayProblemsAdvance {
 
         int[] sequence = {100, 101, 1, 3, 2, 99, 102};
         System.out.println(longestSubsequence(sequence));
+
+        int[] arr = {-1, 0, 2, 4, -2, 1, 3};
+        int k = 2;
+
+        System.out.println(countSubarrayWithKSum(arr, k));
     }
 
     public static void nextPermutation(int[] arr) {
@@ -157,4 +162,43 @@ public class ArrayProblemsAdvance {
         return longest;
     }
 
+    public static int countSubarrayWithKSum(int[] arr, int k) {
+        int n = arr.length;
+
+        // initialize sum and count with 0
+        int sum = 0, cnt = 0;
+
+
+        // initialize a map which will store the prefix sum and the number of times the sum has occured.
+        Map<Integer, Integer> prefixSumMap = new HashMap<>();
+
+        // initially the sum is 0, hence we will store (0, 1) in the prefixSum Map.
+        prefixSumMap.put(0, 1);
+
+        for (int i = 0; i < n; i++) {
+
+            // add the number at the current index in sum.
+            sum += arr[i];
+
+            // if (sum - k) exists in the map, it means that we found subarrays, summing to k
+            int remove = sum - k;
+
+            // basically if sum - k exists, it means that k + sum - k = k
+
+            if (prefixSumMap.containsKey(remove)) {
+                // now we want to increase the count with the number of times we found sum - k
+                cnt += prefixSumMap.get(remove);
+            }
+
+            // add the current prefix sum for future checks.
+            prefixSumMap.put(sum, prefixSumMap.getOrDefault(sum, 0) + 1);
+
+        }
+
+        return cnt;
+    }
+
 }
+
+
+// [-1, 0, 2, 4, -2, 1, 3], k = 2

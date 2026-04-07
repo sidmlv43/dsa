@@ -374,26 +374,36 @@ public class ArrayProblems {
     public static int maxSubArrayWithZeroSum(int[] arr) {
         int n = arr.length;
 
+        // initialize sum and maxi to store the sum and maximum index till now respectively
         int sum = 0, maxi = 0;
+
+        // mpp Hashmap will store prefix sum -> will store sum till present index as key and index as value
         Map<Integer, Integer> mpp = new HashMap<>();
 
         for (int i = 0; i < n; i++) {
+            // add number at present index in the sum variable
             sum += arr[i];
 
+            // if sum is 0, set maxIndex = i + 1
             if (sum == 0) {
                 maxi = i + 1;
 
             }
+
+            // else if mpp contains the sum
             else {
                 if(mpp.containsKey(sum)) {
+                    // update the maxi
                     maxi = Math.max(maxi, i - mpp.get(sum));
                 }
+                // else add the sum data in mpp
                 else {
                     mpp.put(sum, i);
                 }
             }
         }
 
+        // return maxIndex
         return maxi;
     }
 
