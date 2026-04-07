@@ -23,6 +23,10 @@ public class ArrayProblemsAdvance {
         int k = 2;
 
         System.out.println(countSubarrayWithKSum(arr, k));
+
+        int[] arr1 = {1, 2, 5, 2, 4};
+        int m = 6;
+        twoSumUnsorted(arr1, m);
     }
 
     public static void nextPermutation(int[] arr) {
@@ -196,6 +200,28 @@ public class ArrayProblemsAdvance {
         }
 
         return cnt;
+    }
+
+    public static void twoSumUnsorted(int[] arr, int k) {
+        int n = arr.length;
+
+        Map<Integer, Integer> mpp = new HashMap<>();
+
+        int sum = 0;
+
+
+        for (int i = 0; i < n; i++) {
+
+            int req = k - arr[i];
+
+            if (mpp.containsKey(req)) {
+                System.out.println(req + ", " + arr[i]);
+            }
+
+            mpp.put(arr[i], i);
+
+        }
+
     }
 
 }
