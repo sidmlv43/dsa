@@ -207,8 +207,6 @@ public class ArrayProblemsAdvance {
 
         Map<Integer, Integer> mpp = new HashMap<>();
 
-        int sum = 0;
-
 
         for (int i = 0; i < n; i++) {
 
