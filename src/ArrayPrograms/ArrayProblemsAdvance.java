@@ -225,6 +225,3 @@ public class ArrayProblemsAdvance {
     }
 
 }
-
-
-// [-1, 0, 2, 4, -2, 1, 3], k = 2
