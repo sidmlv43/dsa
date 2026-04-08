@@ -5,6 +5,7 @@ import java.util.*;
 
 import static ArrayPrograms.ArrayProblems.reverse;
 
+@SuppressWarnings("all")
 public class ArrayProblemsAdvance {
 
     public static void main(String[] args) {
