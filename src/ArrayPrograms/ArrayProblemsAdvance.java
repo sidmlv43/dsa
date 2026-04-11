@@ -28,6 +28,21 @@ public class ArrayProblemsAdvance {
         int[] arr1 = {1, 2, 5, 2, 4};
         int m = 6;
         twoSumUnsorted(arr1, m);
+
+        int[] n1 = {-1, 0, 1, 2, -2};
+        int[] n2 = {-1, 0, 1, 2, -1, -4};
+        int[] n3 = {-2, 0, 1, 1, 2};
+
+
+        System.out.println(threeSumBruteForce(n1));
+        System.out.println(threeSumBetter(n1));
+        System.out.println(threeSumOptimized(n1));
+        System.out.println(threeSumBruteForce(n2));
+        System.out.println(threeSumBetter(n2));
+        System.out.println(threeSumOptimized(n2));
+        System.out.println(threeSumBruteForce(n3));
+        System.out.println(threeSumBetter(n3));
+        System.out.println(threeSumOptimized(n3));
     }
 
     public static void nextPermutation(int[] arr) {
@@ -221,6 +236,96 @@ public class ArrayProblemsAdvance {
 
         }
 
+    }
+
+
+    public static Set<List<Integer>> threeSumBruteForce(int[] arr) {
+        int n = arr.length;
+        Set<List<Integer>> ans = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = i +1; j < n; j++) {
+                for(int k = j + 1; k < n; k++) {
+                    if (arr[i] + arr[k] + arr[j] == 0) {
+                        List<Integer> temp = new ArrayList<>(List.of(arr[i], arr[j], arr[k]));
+                        Collections.sort(temp);
+                        ans.add(temp);
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+
+
+    public static Set<List<Integer>> threeSumBetter(int[] arr) {
+        int n = arr.length;
+        Set<List<Integer>> ans = new HashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            Set<Integer> temp = new HashSet<>();
+            for (int j = i+ 1; j < n; j++) {
+
+                int req = -(arr[i] + arr[j]);
+
+                if (temp.contains(req)) {
+                    List<Integer> seq = new ArrayList<>(List.of(arr[i], arr[j], req));
+                    Collections.sort(seq);
+                    ans.add(seq);
+                }
+
+                temp.add(arr[j]);
+            }
+        }
+
+        return ans;
+    }
+
+
+    public static List<List<Integer>> threeSumOptimized(int[] arr) {
+        int n = arr.length;
+        // first sort the array
+        Arrays.sort(arr);
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (i > 0 && arr[i] == arr[i - 1]) {
+                continue;
+            }
+
+            int j = i + 1;
+            int k = n - 1;
+
+            while (j < k) {
+                int sum = arr[i] + arr[j] + arr[k];
+
+                if (sum < 0) {
+                    j++;
+                }
+
+                else if (sum > 0) {
+                    k--;
+                }
+
+                else {
+                    ans.add(new ArrayList<>(List.of(arr[i], arr[j], arr[k])));
+                    j++;
+                    k--;
+
+                    // avoids dupliate check in arr[j] and arr[k]
+                    while (j < k && arr[j] == arr[j - 1]) {
+                        j++;
+                    }
+                    while (j < k && arr[k] == arr[k + 1]) {
+                        k--;
+                    }
+                }
+            }
+
+        }
+
+        return ans;
     }
 
 }
