@@ -76,6 +76,9 @@ public class ArrayProblems {
         int[] arr3 = {-1, -2, 0, 1, -3, 4};
         int[] reArranged = reArrangeBySign(arr3);
         System.out.println(Arrays.toString(reArranged));
+
+        int[] nums = {1, 1, 2, 1, 2, 4, 5};
+        System.out.println(majorityElementNBy3(nums));
     }
 
     public static int findMax(int[] arr) {
@@ -548,4 +551,65 @@ public class ArrayProblems {
 
         return temp;
     }
+
+    public static List<Integer> majorityElementNBy3(int[] arr) {
+        int n = arr.length;
+
+        int el1 = 0, cnt1 = 0, el2 = 0, cnt2 = 0;
+
+        List<Integer> ans = new ArrayList<>();
+
+
+        for (int i = 0; i < n; i++) {
+
+            if (cnt1 == 0 && arr[i] != el2) {
+                el1 = arr[i];
+                cnt1 = 1;
+            }
+
+            else if (cnt2 == 0 && arr[i] != el1) {
+                el2 = arr[i];
+                cnt2 = 1;
+            }
+
+            else if (arr[i] == el1) {
+                cnt1++;
+            }
+
+            else if (arr[i] == el2) {
+                cnt2++;
+            }
+
+            else {
+                cnt2--;
+                cnt1--;
+            }
+        }
+
+        // possible candidates are el1 and el2
+
+        int c1 = 0, c2 = 0;
+
+        for (int num: arr) {
+            if (num == el1) {
+                c1++;
+            }
+            if (num == el2) {
+                c2++;
+            }
+
+        }
+
+        if (c1 >  n / 3) {
+            ans.add(el1);
+        }
+
+        if (c2 > n / 3) {
+            ans.add(el2);
+        }
+
+        return ans;
+
+    }
+
 }
